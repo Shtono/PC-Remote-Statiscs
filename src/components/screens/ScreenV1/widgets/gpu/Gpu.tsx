@@ -1,20 +1,32 @@
 import { Stack, Typography } from "@mui/material";
 import Bar from "../../../../widgets/Bar";
-import { sensors } from "../../ScreenV1.model";
 
-const Gpu = () => {
+export type GpuSensor = {
+  label: string;
+  value: number;
+  unit: string;
+  min: number;
+  max: number;
+}
+
+export type GpuProps = {
+  sensors: GpuSensor[];
+}
+const Gpu = ({sensors}: GpuProps) => {
+  // if (sensors.length === 0) return null;
   return (
-    <Stack>
-      {sensors.gpu.sensors.map((sensor) => {
+    <Stack overflow="scroll">
+      {sensors.map((sensor) => {
         return (
+          <Stack gap={2} direction="row" key={sensor.label}>
           <Bar
-            key={sensor.label}
             sensor={sensor.label}
             value={sensor.value}
             unit={sensor.unit}
             containerWidth={250}
             barWidth={(sensor.value / sensor.max) * 100}
           />
+          </Stack>
         );
       })}
     </Stack>
