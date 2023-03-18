@@ -1,6 +1,7 @@
+import { ImgHTMLAttributes } from "react";
 import { Stack, Typography } from "@mui/material";
 import NvidiaLogo from "assets/logo/nvidiaLogo.png";
-export type GpuSensor = {
+export type sensor = {
   label: string;
   value: number;
   unit: string;
@@ -8,17 +9,28 @@ export type GpuSensor = {
   max: number;
 };
 
-export type GpuProps = {
-  sensors: GpuSensor[];
+export type SensorsWithCategoryProps = {
+  sensors: sensor[];
+  category: string;
+  logo: string | undefined;
+  logoAlt: string;
 };
-const Gpu = ({ sensors }: GpuProps) => {
-  // if (sensors.length === 0) return null;
+const SensorsWithCategory = ({
+  sensors,
+  category,
+  logo,
+}: SensorsWithCategoryProps) => {
   return (
     <Stack overflow="scroll">
-      <Stack direction="row" alignItems="center" gap={3}>
-        <img style={{ height: 50 }} src={NvidiaLogo} alt="Nvidia" />
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        gap={3}
+      >
+        <img style={{ height: 50 }} src={logo} alt="Nvidia" />
         <Typography fontFamily="Anton" variant="h4">
-          RTX 3080 10 GB
+          {category}
         </Typography>
       </Stack>
       {sensors.map((sensor) => {
@@ -42,4 +54,4 @@ const Gpu = ({ sensors }: GpuProps) => {
     </Stack>
   );
 };
-export default Gpu;
+export default SensorsWithCategory;

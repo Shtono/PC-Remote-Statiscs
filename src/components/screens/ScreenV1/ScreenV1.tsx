@@ -1,10 +1,14 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { Stack, Typography, Box } from "@mui/material";
 import GaugeChart from "react-gauge-chart";
 import R2D2 from "../../../assets/R2D2.gif";
+import NvidiaLogo from "assets/logo/nvidiaLogo.png";
+import IntelLogo from "assets/logo/intelLogo.png";
+import AorusLogo from "assets/logo/aorusLogo.png";
 import Fallout from "../../../assets/gif/fallout_gif_1.gif";
 import Bar from "../../widgets/Bar";
 import Gpu from "./widgets/gpu/Gpu";
+import SensorsWithCategory from "./widgets/SensorsWithCategory/SensorsWithCategory";
 import axios from "axios";
 
 const styles = {
@@ -30,31 +34,75 @@ const styles = {
 // FPS - fps, frametime
 // Motherboard - fans front, fan back , fans top, pump, water temp
 
+function ScreenV1Heading() {
+  const [time, setTime] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <Stack sx={styles.levelOne}>
+      <Stack direction="row" justifyContent="center" width={100}>
+        <Typography>{time.toLocaleTimeString()}</Typography>
+      </Stack>
+      <Typography
+        variant="h1"
+        sx={{
+          justifySelf: "center",
+          fontFamily: "Bungee Shade, cursive",
+          fontSize: 48,
+          color: "#C4B6FF",
+        }}
+        color="white"
+      >
+        Hi Shtono, Have fun!
+      </Typography>
+      <img style={styles.img} src={Fallout} alt="StarWars" />
+    </Stack>
+  );
+}
+
 const ScreenV1 = () => {
   const [sensors, setSensors] = useState<any>([]);
-  useEffect( () => {
+  useEffect(() => {
     const getSensors = async () => {
-      const res = await axios.get();
+      const res = await axios.get("http://192.168.0.163:5000/sensors");
       setSensors(res.data.sensors);
-    }
+    };
     const interval = setInterval(() => {
       getSensors();
     }, 1000);
     return () => clearInterval(interval);
-  }, [])
-  console.log(sensors)
+  }, []);
+  console.log(sensors);
   return (
     <Stack height={1} sx={styles.containerMain}>
-      <Stack sx={styles.levelOne}>
-        <Typography color="white">Hi</Typography>
-        <img style={styles.img} src={Fallout} alt="StarWars" />
-      </Stack>
+      <ScreenV1Heading />
       <Stack spacing={8} direction="row" height={1}>
-        <Stack>
-          <Typography color="white">Gpu</Typography>
-          <Gpu sensors={sensors} />
+        <Stack p={3} direction="row" justifyContent="space-between" width={1}>
+          <SensorsWithCategory
+            category="RTX 3080 10 GB"
+            logo={NvidiaLogo}
+            logoAlt="Nvidia"
+            sensors={sensors.slice(0, 11)}
+          />
+          <Stack justifyContent="space-between">
+            <SensorsWithCategory
+              category="Core i7 8700K"
+              logo={IntelLogo}
+              logoAlt="Intel"
+              sensors={sensors.slice(11, 17)}
+            />
+            <SensorsWithCategory
+              category="Z390"
+              logo={AorusLogo}
+              logoAlt="Gigabyte Aorus"
+              sensors={sensors.slice(19, 25)}
+            />
+          </Stack>
         </Stack>
-        <Typography variant="h1" color="white">{sensors[17].value} FPS</Typography>
       </Stack>
     </Stack>
   );
@@ -62,11 +110,11 @@ const ScreenV1 = () => {
 
 export default ScreenV1;
 
-  // <GaugeChart
-  // id="gauge-chart5"
-  // nrOfLevels={5}
-  // arcsLength={[0.2, 0.5, 0.2]}
-  // colors={["#5BE12C", "#F5CD19", "#EA4228"]}
-  // arcPadding={0.1}
-  // formatTextValue={() => `${gpuClock} Mhz`}
-  // />
+// <GaugeChart
+// id="gauge-chart5"
+// nrOfLevels={5}
+// arcsLength={[0.2, 0.5, 0.2]}
+// colors={["#5BE12C", "#F5CD19", "#EA4228"]}
+// arcPadding={0.1}
+// formatTextValue={() => `${gpuClock} Mhz`}
+// />

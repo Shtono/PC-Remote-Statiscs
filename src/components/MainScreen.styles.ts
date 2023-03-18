@@ -5,6 +5,6 @@ const containerMain: SxProps = {
   alignItems: "center",
   height: "100%",
   backgroundColor: "black",
-  overflow: "scroll",
+  color: "#fff",
 };
 export default { containerMain };
