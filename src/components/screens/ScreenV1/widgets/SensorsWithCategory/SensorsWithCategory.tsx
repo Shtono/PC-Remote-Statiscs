@@ -1,16 +1,8 @@
-import { ImgHTMLAttributes } from "react";
 import { Stack, Typography } from "@mui/material";
-import NvidiaLogo from "assets/logo/nvidiaLogo.png";
-export type sensor = {
-  label: string;
-  value: number;
-  unit: string;
-  min: number;
-  max: number;
-};
+import { Sensor } from 'global.types'
 
 export type SensorsWithCategoryProps = {
-  sensors: sensor[];
+  sensors: Sensor[];
   category: string;
   logo: string | undefined;
   logoAlt: string;

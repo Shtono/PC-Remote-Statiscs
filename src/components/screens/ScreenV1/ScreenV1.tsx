@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { Stack, Typography, Box } from "@mui/material";
-import GaugeChart from "react-gauge-chart";
-import R2D2 from "../../../assets/R2D2.gif";
+import { Stack, Typography } from "@mui/material";
+import R2D2 from "../../../assets/gif/R2D2.gif";
 import NvidiaLogo from "assets/logo/nvidiaLogo.png";
 import IntelLogo from "assets/logo/intelLogo.png";
 import AorusLogo from "assets/logo/aorusLogo.png";
-import Fallout from "../../../assets/gif/fallout_gif_1.gif";
-import Bar from "../../widgets/Bar";
-import Gpu from "./widgets/gpu/Gpu";
 import SensorsWithCategory from "./widgets/SensorsWithCategory/SensorsWithCategory";
 import axios from "axios";
+import GaugeV1 from "./widgets/gaugeV1/GaugeV1";
+import {Sensor} from "global.types";
+import { useSensors } from "hooks";
 
 const styles = {
   img: {
@@ -27,12 +26,13 @@ const styles = {
   },
 };
 
-// Gpu - temp, usage, clock, power percent, power draw, hot spot temp
-// Gpu memory - usage, clock, temp, hot spot temp
-// Cpu - temp, usage, clock, power draw
-// Ram - usage, clock, usage percent
-// FPS - fps, frametime
-// Motherboard - fans front, fan back , fans top, pump, water temp
+const GaugeStack = ({sensors}: {sensors: Sensor[]}) => {
+  return (
+    <Stack sx={{border: "white solid 0px"}} gap={7} direction="row" justifyContent="space-between">
+      {sensors.map(sensor => <GaugeV1 key={sensor.label} sensor={sensor} />)}
+    </Stack>
+  )
+}
 
 function ScreenV1Heading() {
   const [time, setTime] = useState(new Date());
@@ -59,49 +59,80 @@ function ScreenV1Heading() {
       >
         Hi Shtono, Have fun!
       </Typography>
-      <img style={styles.img} src={Fallout} alt="StarWars" />
+      <img style={styles.img} src={R2D2} alt="StarWars" />
     </Stack>
   );
 }
 
+function ScreenV1ContentLeft(props: { sensors: Sensor[], gaugeSensors: Sensor[] }) {
+  return <Stack spacing={2} direction="column" justifyContent="space-between" height={1}>
+    <SensorsWithCategory
+      category="RTX 3080 10 GB"
+      logo={NvidiaLogo}
+      logoAlt="Nvidia"
+      sensors={props.sensors.slice(0, 11)}
+    />
+    <GaugeStack sensors={props.gaugeSensors} />
+  </Stack>
+}
+
+function ScreenV1ContentMiddle({sensors}: {sensors: Sensor[]}){
+  const groupsOfTwo = () => {
+    const groups = []
+    for (let i = 0; i < sensors.length; i += 2) {
+      groups.push(sensors.slice(i, i + 2))
+    }
+    return groups
+  }
+
+  return <Stack justifyContent="space-between">
+    {groupsOfTwo().map((group, index) => <GaugeStack key={index} sensors={group} />)}
+  </Stack>;
+}
+
+function ScreenV1ContentRight(props: { sensors: any }) {
+  return <Stack justifyContent="space-between">
+    <SensorsWithCategory
+      category="Core i7 8700K"
+      logo={IntelLogo}
+      logoAlt="Intel"
+      sensors={props.sensors.slice(11, 17)}
+    />
+    <SensorsWithCategory
+      category="Z390"
+      logo={AorusLogo}
+      logoAlt="Gigabyte Aorus"
+      sensors={props.sensors.slice(19, 25)}
+    />
+  </Stack>;
+}
+
+
 const ScreenV1 = () => {
-  const [sensors, setSensors] = useState<any>([]);
-  useEffect(() => {
-    const getSensors = async () => {
-      const res = await axios.get("http://192.168.0.163:5000/sensors");
-      setSensors(res.data.sensors);
-    };
-    const interval = setInterval(() => {
-      getSensors();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-  console.log(sensors);
+  const sensors = useSensors();
+  // if (!sensors) return <div>Loading...</div>;
+  return <div>Loading...</div>;
+  const leftGaugeSensors = [
+    sensors[19],
+    sensors[24],
+    ];
+  const middleSensors = [
+    sensors[2],
+    sensors[12],
+    sensors[0],
+    sensors[11],
+    sensors[17],
+    sensors[16],
+  ];
+  if (!sensors.length) return <div>Loading...</div>;
   return (
     <Stack height={1} sx={styles.containerMain}>
-      <ScreenV1Heading />
+      <ScreenV1Heading/>
       <Stack spacing={8} direction="row" height={1}>
         <Stack p={3} direction="row" justifyContent="space-between" width={1}>
-          <SensorsWithCategory
-            category="RTX 3080 10 GB"
-            logo={NvidiaLogo}
-            logoAlt="Nvidia"
-            sensors={sensors.slice(0, 11)}
-          />
-          <Stack justifyContent="space-between">
-            <SensorsWithCategory
-              category="Core i7 8700K"
-              logo={IntelLogo}
-              logoAlt="Intel"
-              sensors={sensors.slice(11, 17)}
-            />
-            <SensorsWithCategory
-              category="Z390"
-              logo={AorusLogo}
-              logoAlt="Gigabyte Aorus"
-              sensors={sensors.slice(19, 25)}
-            />
-          </Stack>
+          <ScreenV1ContentLeft sensors={sensors} gaugeSensors={leftGaugeSensors}/>
+          <ScreenV1ContentMiddle sensors={middleSensors}/>
+          <ScreenV1ContentRight sensors={sensors}/>
         </Stack>
       </Stack>
     </Stack>
@@ -109,12 +140,3 @@ const ScreenV1 = () => {
 };
 
 export default ScreenV1;
-
-// <GaugeChart
-// id="gauge-chart5"
-// nrOfLevels={5}
-// arcsLength={[0.2, 0.5, 0.2]}
-// colors={["#5BE12C", "#F5CD19", "#EA4228"]}
-// arcPadding={0.1}
-// formatTextValue={() => `${gpuClock} Mhz`}
-// />
