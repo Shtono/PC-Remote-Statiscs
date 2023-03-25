@@ -1,12 +1,6 @@
 import { Stack, Typography } from "@mui/material";
-import { Sensor } from 'global.types'
+import { SensorsWithCategoryProps } from "./SensorsWithCategory.types";
 
-export type SensorsWithCategoryProps = {
-  sensors: Sensor[];
-  category: string;
-  logo: string | undefined;
-  logoAlt: string;
-};
 const SensorsWithCategory = ({
   sensors,
   category,

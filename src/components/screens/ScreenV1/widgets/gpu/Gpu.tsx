@@ -12,7 +12,6 @@ export type GpuProps = {
   sensors: GpuSensor[];
 };
 const Gpu = ({ sensors }: GpuProps) => {
-  // if (sensors.length === 0) return null;
   return (
     <Stack overflow="scroll">
       <Stack direction="row" alignItems="center" gap={3}>
