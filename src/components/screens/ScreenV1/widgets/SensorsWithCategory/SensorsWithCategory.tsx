@@ -19,7 +19,7 @@ const SensorsWithCategory = ({
           {category}
         </Typography>
       </Stack>
-      {sensors.map((sensor) => {
+      {sensors.map((sensor, index) => {
         return (
           <Stack
             width={275}
@@ -27,11 +27,12 @@ const SensorsWithCategory = ({
             direction="row"
             justifyContent="space-between"
             key={sensor.label}
+            sx={{color: index % 2 === 0 ? 'white' : 'wheat', fontFamily: 'Anton', fontSize: index % 2 === 0 ? 14 : 16}}
           >
-            <Typography variant="body2">
+            <Typography fontFamily='inherit' fontSize='inherit' variant="body2">
               {sensor.label.replace("GPU ", "")}
             </Typography>
-            <Typography variant="body2">
+            <Typography fontFamily='inherit' fontSize='inherit' variant="body2">
               {sensor.value} {sensor.unit}
             </Typography>
           </Stack>
