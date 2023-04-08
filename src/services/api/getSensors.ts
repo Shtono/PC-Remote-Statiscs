@@ -21,4 +21,3 @@ const getAllSensors = async () => {
 }
 
 export default getAllSensors
-

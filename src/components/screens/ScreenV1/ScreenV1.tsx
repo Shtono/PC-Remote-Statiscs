@@ -41,6 +41,47 @@ const GaugeStack = ({ sensors }: { sensors: Sensor[] }) => {
   );
 };
 
+const counterStartValue = {
+  milliSeconds: 0,
+  seconds: 0,
+  minutes: 0,
+  hours: 0,
+}
+const RunTimeCounter = () => {
+  const [state, setState] = useState(counterStartValue);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      let { milliSeconds, seconds, minutes, hours } = state;
+      milliSeconds += 1000;
+      if (milliSeconds === 1000) {
+        seconds += 1;
+        milliSeconds = 0;
+      }
+      if (seconds === 60) {
+        minutes += 1;
+        seconds = 0;
+      }
+      if (minutes === 60) {
+        hours += 1;
+        minutes = 0;
+      }
+      setState({ milliSeconds, seconds, minutes, hours });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [state])
+
+  return (
+    <Stack width={1} direction="row" justifyContent="center">
+      <Typography  sx={{}}>{`${state.hours}:${state.minutes}:${state.seconds}`}</Typography>
+    </Stack>
+  )
+
+
+
+}
+
 function ScreenV1Heading() {
   const [time, setTime] = useState(new Date());
   useEffect(() => {
@@ -52,7 +93,11 @@ function ScreenV1Heading() {
   return (
     <Stack sx={styles.levelOne}>
       <Stack direction="row" justifyContent="center" width={100}>
+        <Stack direction="column" justifyContent="center" width={100}>
         <Typography>{time.toLocaleTimeString()}</Typography>
+        <Typography>{time.toLocaleDateString()}</Typography>
+          <RunTimeCounter />
+        </Stack>
       </Stack>
       <Typography
         variant="h1"
@@ -74,6 +119,7 @@ function ScreenV1Heading() {
 function ScreenV1ContentLeft(props: {
   sensors: Sensor[];
   gaugeSensors: Sensor[];
+  // Try to implement position
 }) {
   return (
     <Stack
