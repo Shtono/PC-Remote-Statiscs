@@ -1,7 +1,7 @@
 // import NvidiaLogo from "assets/logo/nvidiaLogo.png";
 // import IntelLogo from "assets/logo/intelLogo.png";
-import NvidiaLogo from "../../../assets/logo/nvidiaLogo.png";
-import IntelLogo from "../../../assets/logo/intelLogo.png";
+import NvidiaLogo from "assets/logo/nvidiaLogo.png";
+import IntelLogo from "assets/logo/intelLogo.png";
 const gpu = {
   label: "GPU",
   model: "RTX 3080 10GB",

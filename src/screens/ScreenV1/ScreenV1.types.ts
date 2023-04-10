@@ -1,4 +1,4 @@
-import { sensors } from "./ScreenV1.model";
+import { sensors } from "screens/ScreenV1/ScreenV1.model"
 
 export type Sensor = {
   label: string;

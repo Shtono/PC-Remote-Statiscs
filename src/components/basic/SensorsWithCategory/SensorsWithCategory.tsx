@@ -1,5 +1,5 @@
-import { Stack, Typography } from "@mui/material";
-import { SensorsWithCategoryProps } from "./SensorsWithCategory.types";
+import { Stack, Typography } from "@mui/material"
+import { SensorsWithCategoryProps } from "components/basic/SensorsWithCategory/SensorsWithCategory.types"
 
 const SensorsWithCategory = ({
   sensors,
@@ -27,7 +27,7 @@ const SensorsWithCategory = ({
             direction="row"
             justifyContent="space-between"
             key={sensor.label}
-            sx={{color: index % 2 === 0 ? 'white' : 'wheat', fontFamily: 'Anton', fontSize: index % 2 === 0 ? 14 : 16}}
+            sx={{ color: index % 2 === 0 ? 'white' : 'wheat', fontFamily: 'Anton', fontSize: index % 2 === 0 ? 14 : 16 }}
           >
             <Typography fontFamily='inherit' fontSize='inherit' variant="body2">
               {sensor.label.replace("GPU ", "")}
@@ -36,9 +36,9 @@ const SensorsWithCategory = ({
               {sensor.value} {sensor.unit}
             </Typography>
           </Stack>
-        );
+        )
       })}
     </Stack>
-  );
-};
-export default SensorsWithCategory;
+  )
+}
+export default SensorsWithCategory

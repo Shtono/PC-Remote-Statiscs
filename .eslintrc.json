@@ -23,7 +23,12 @@
         "prettier"
     ],
     "rules": {
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "semi": ["error", "never"],
+        "@typescript-eslint/semi": "off",
+        "object-curly-spacing": ["warn", "always"],
+        "@typescript-eslint/object-curly-spacing": "off",
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }]
     },
     "settings": {
         "import/resolver": {
