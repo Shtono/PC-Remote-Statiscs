@@ -1,4 +1,4 @@
-import { SxProps} from "@mui/material";
+import { SxProps } from "@mui/material"
 
 const containerMain: SxProps = {
   justifyContent: "space-between",
@@ -10,24 +10,30 @@ const containerMain: SxProps = {
   height: '100%',
   borderRadius: 10,
   border: '5px solid transparent',
-  animation: 'rainbowBorder 10s ease-in infinite',
+  animation: 'rainbowBorder 10s linear infinite',
   '@keyframes rainbowBorder': {
     '0%': {
-      borderColor: 'red'
+      borderColor: 'violet'
     },
-    '16.6%': {
+    '12.5%': {
       borderColor: 'orange'
     },
-    '33.3%': {
-      borderColor: 'yellow'
+    '25%': {
+      borderColor: 'red'
+    },
+    '37.5%': {
+      borderColor: 'orange'
     },
     '50%': {
+      borderColor: 'yellow'
+    },
+    '62.5%': {
       borderColor: 'green'
     },
-    '66.6%': {
+    '75%': {
       borderColor: 'blue'
     },
-    '83.3%': {
+    '87.5%': {
       borderColor: 'indigo'
     },
     '100%': {
@@ -41,4 +47,4 @@ const wrapper = {
   height: '100%',
   width: '100%',
 }
-export default { containerMain, wrapper };
+export default { containerMain, wrapper }

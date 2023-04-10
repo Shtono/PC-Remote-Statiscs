@@ -1,1 +1,1 @@
-export {default as useSensors} from './api/useSensors/useSensors';
+export { default as useSensors } from 'hooks/api/useSensors'
