@@ -12,11 +12,10 @@
 /build
 
 # misc
-features.txt
 .DS_Store
 .env.local
 .env*
-.idea
+*.txt
 
 npm-debug.log*
 yarn-debug.log*
