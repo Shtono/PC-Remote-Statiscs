@@ -6,7 +6,7 @@ export const handleResponseError = (err: unknown) => {
     throw new Error(err.message)
   }
   const error = new Error()
-  error.message = 'Something went wrong!'
+  error.message = "Something went wrong!"
   return error
 }
 
@@ -14,9 +14,9 @@ const getAllSensors = async () => {
   const url = `${API_BASE_URL}/sensors`
   const urlWifi = `${API_BASE_URL_WIFI}/sensors`
   try {
-    const response = await axios.get(urlWifi)
+    const response = await axios.get(url)
     return response.data
-  } catch(err: unknown) {
+  } catch (err: unknown) {
     handleResponseError(err)
   }
 }
