@@ -15,6 +15,7 @@ const { containerMain } = styles
 
 const ScreenV1 = () => {
   const { data: sensors } = useSensors()
+  console.log(sensors)
   if (!sensors?.length) return <div>Loading...</div>
   const leftGaugeSensors = [sensors[19], sensors[24]]
   const middleSensors = [

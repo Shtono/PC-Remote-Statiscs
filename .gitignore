@@ -12,6 +12,7 @@
 /build
 
 # misc
+features.txt
 .DS_Store
 .env.local
 .env*
