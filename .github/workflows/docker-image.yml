@@ -18,7 +18,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build Docker image
-        run: docker build -t pc-remote-statistics:latest .
+        run: docker build -t pc-rms .
       - name: Tag Docker image
         run: docker tag pc-rms homeservermain/home_server:latest
       - name: Push Docker image
