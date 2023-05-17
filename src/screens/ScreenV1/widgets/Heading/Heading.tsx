@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
-import { Stack, Typography } from "@mui/material"
+import { Stack, Typography, Box } from "@mui/material"
 import { UpTimeCounter } from "components/info"
 import { SidePanel } from "components/panels"
 import { R2D2 } from "assets/gif"
 import styles from "screens/ScreenV1/widgets/Heading/Heading.styles"
 import { image } from "global.styles"
+import { GifSelect } from "components/modals"
 
-function Heading() {
+function HeadingLeft() {
   const [time, setTime] = useState(new Date())
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,21 +16,28 @@ function Heading() {
 
     return () => clearInterval(interval)
   }, [])
+  return (
+    <Stack
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      width={100}
+    >
+      <Typography>{time.toLocaleTimeString()}</Typography>
+      <SidePanel />
+      <Typography>{time.toLocaleDateString()}</Typography>
+      {/*<UpTimeCounter />*/}
+    </Stack>
+  )
+}
 
+function Heading() {
+  const [open, setOpen] = useState(false)
+  const [displayImage, setDisplayImage] = useState(R2D2)
   return (
     <Stack sx={styles.levelOne}>
       <Stack direction="row" justifyContent="center" width={100}>
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          width={100}
-        >
-          <Typography>{time.toLocaleTimeString()}</Typography>
-          <SidePanel />
-          <Typography>{time.toLocaleDateString()}</Typography>
-          {/*<UpTimeCounter />*/}
-        </Stack>
+        <HeadingLeft />
       </Stack>
       <Typography
         variant="h1"
@@ -43,7 +51,14 @@ function Heading() {
       >
         Hi Shtono, Have fun!
       </Typography>
-      <img style={image} src={R2D2} alt="StarWars" />
+      <Box onClick={() => setOpen(true)}>
+        <img style={image} src={displayImage || R2D2} alt="StarWars" />
+      </Box>
+      <GifSelect
+        open={open}
+        onClose={() => setOpen(false)}
+        setImage={setDisplayImage}
+      />
     </Stack>
   )
 }

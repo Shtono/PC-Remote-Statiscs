@@ -10,12 +10,12 @@ import { SensorsWithCategory } from "components/basic"
 import { Sensor } from "global.types"
 import { useSensors } from "hooks"
 import styles from "screens/ScreenV1/ScreenV1.styles"
+import { sensors } from "screens/ScreenV1/ScreenV1.model"
 
 const { containerMain } = styles
 
-const ScreenV1 = () => {
+function ScreenContent() {
   const { data: sensors } = useSensors()
-  console.log(sensors)
   if (!sensors?.length) return <div>Loading...</div>
   const leftGaugeSensors = [sensors[19], sensors[24]]
   const middleSensors = [
@@ -26,18 +26,20 @@ const ScreenV1 = () => {
     sensors[17],
     sensors[16],
   ]
+  return (
+    <Stack p={3} direction="row" justifyContent="space-between" width={1}>
+      <ScreenV1ContentLeft sensors={sensors} gaugeSensors={leftGaugeSensors} />
+      <GaugeStack sensors={middleSensors} maxWidth={300} />
+      <ScreenV1ContentRight sensors={sensors} />
+    </Stack>
+  )
+}
 
+const ScreenV1 = () => {
   return (
     <Stack height={1} sx={containerMain}>
       <Heading />
-      <Stack p={3} direction="row" justifyContent="space-between" width={1}>
-        <ScreenV1ContentLeft
-          sensors={sensors}
-          gaugeSensors={leftGaugeSensors}
-        />
-        <GaugeStack sensors={middleSensors} maxWidth={300} />
-        <ScreenV1ContentRight sensors={sensors} />
-      </Stack>
+      <ScreenContent />
     </Stack>
   )
 }
