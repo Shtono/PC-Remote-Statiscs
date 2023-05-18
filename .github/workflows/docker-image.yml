@@ -20,6 +20,6 @@ jobs:
       - name: Build Docker image
         run: docker build -t pc-rms .
       - name: Tag Docker image
-        run: docker tag pc-rms ${{ secrets.DOCKERHUB_USERNAME }}/pc-rms-fe:latest
+        run: docker tag pc-rms ${{ secrets.DOCKERHUB_USERNAME }}/pc-rms-client:latest
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/pc-rms-fe:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/pc-rms-client:latest
