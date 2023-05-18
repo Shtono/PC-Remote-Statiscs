@@ -49,7 +49,7 @@ function Heading() {
         }}
         color="white"
       >
-        Watchtower Works!!!
+        Watchtower...!!!
       </Typography>
       <Box onClick={() => setOpen(true)}>
         <img style={image} src={displayImage || R2D2} alt="StarWars" />
