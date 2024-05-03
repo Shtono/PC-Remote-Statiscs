@@ -7,7 +7,7 @@ function ImageWrapper({ image }: any) {
   return (
     <div
       style={{
-        border: "1px solid wheat",
+        // border: "1px solid wheat",
         backgroundImage: `url(${image})`,
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
@@ -58,7 +58,7 @@ function ImageContainer({
       alignItems="flex-start"
       alignContent="flex-start"
       overflow="scroll"
-      sx={{ border: "green solid 1px", flexBasis: "auto" }}
+      // sx={{ border: "green solid 1px", flexBasis: "auto" }}
     >
       {images.map((gif, i) => (
         <Box key={gif} onClick={() => setImage(i)}>
@@ -107,7 +107,7 @@ const GifSelect = ({ open, onClose, setImage }: any) => {
           bottom: "20%",
           left: "20%",
           right: "20%",
-          border: "1px solid red",
+          // border: "1px solid red",
           backgroundColor: "#000000",
         }}
       >
