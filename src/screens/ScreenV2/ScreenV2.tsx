@@ -166,62 +166,63 @@ const ScreenV2 = () => {
             ))}
           </Stack>
         </Stack>
+
         <Stack width={1}>
           <Typography variant="h5">Stats</Typography>
           <Stack direction="row" sx={styles.containerSensorRight} mb={2}>
             <Typography sx={{ marginRight: "auto" }} variant="h6">
               FPS
             </Typography>
-            <Typography>{fps}</Typography>
+            <Typography variant="h6">{fps}</Typography>
           </Stack>
           <Stack direction="row" sx={styles.containerSensorRight}>
             <Typography sx={{ marginRight: "auto" }} variant="h6">
               GPU Core
             </Typography>
-            <Typography>{gpuTemp}</Typography>
-            <Typography>{gpuLoad}</Typography>{" "}
-            <Typography>{`${gpuPowerWatts} (${gpuPowerPercent})`}</Typography>
+            <Typography variant="h6">{gpuTemp}</Typography>
+            <Typography variant="h6">{gpuLoad}</Typography>{" "}
+            <Typography variant="h6">{`${gpuPowerWatts} (${gpuPowerPercent})`}</Typography>
           </Stack>
 
           <Stack direction="row" sx={styles.containerSensorRight}>
             <Typography sx={{ marginRight: "auto" }} variant="h6">
               GPU Mem
             </Typography>
-            <Typography>{gpuMemTemp}</Typography>
-            <Typography>{`${gpuRam} (${gpuRamPercent})`}</Typography>
+            <Typography variant="h6">{gpuMemTemp}</Typography>
+            <Typography variant="h6">{`${gpuRam} (${gpuRamPercent})`}</Typography>
           </Stack>
 
           <Stack direction="row" sx={styles.containerSensorRight}>
             <Typography sx={{ marginRight: "auto" }} variant="h6">
               CPU
             </Typography>
-            <Typography>{cpuTemp}</Typography>
-            <Typography>{cpuUsage}</Typography>
-            <Typography>{cpuClock}</Typography>
-            <Typography>{cpuPower}</Typography>
+            <Typography variant="h6">{cpuTemp}</Typography>
+            <Typography variant="h6">{cpuUsage}</Typography>
+            <Typography variant="h6">{cpuClock}</Typography>
+            <Typography variant="h6">{cpuPower}</Typography>
           </Stack>
 
           <Stack direction="row" sx={styles.containerSensorRight}>
             <Typography sx={{ marginRight: "auto" }} variant="h6">
               RAM
             </Typography>
-            <Typography>{`${ramUsedMb} (${ramUsedPercent})`}</Typography>
+            <Typography variant="h6">{`${ramUsedMb} (${ramUsedPercent})`}</Typography>
           </Stack>
 
           <Stack direction="row" sx={styles.containerSensorRight}>
             <Typography sx={{ marginRight: "auto" }} variant="h6">
               Water
             </Typography>
-            <Typography>{waterTemp}</Typography>
-            <Typography>{pump}</Typography>
+            <Typography variant="h6">{waterTemp}</Typography>
+            <Typography variant="h6">{pump}</Typography>
           </Stack>
 
           <Stack direction="row" sx={styles.containerSensorRight}>
             <Typography sx={{ marginRight: "auto" }} variant="h6">
               FAN
             </Typography>
-            <Typography>{`${fanCpu} (CPU)`}</Typography>
-            <Typography>{`${fan4} (FRONT)`}</Typography>
+            <Typography variant="h6">{`${fanCpu} (CPU)`}</Typography>
+            <Typography variant="h6">{`${fan4} (FRONT)`}</Typography>
           </Stack>
         </Stack>
       </Stack>
