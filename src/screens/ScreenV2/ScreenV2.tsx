@@ -1,5 +1,6 @@
 import { useSensors } from "hooks"
 import { Stack, Typography } from "@mui/material"
+import { Heading } from "screens/ScreenV1/widgets"
 
 const styles = {
   containerMain: {},
@@ -26,7 +27,7 @@ const ScreenV2 = () => {
 
   if (!sensors?.length) return <Typography>Loading...</Typography>
 
-  console.log("Sensors: ", sensors)
+  // console.log("Sensors: ", sensors)
 
   // return <div>123</div>
 
@@ -79,10 +80,10 @@ const ScreenV2 = () => {
       value: `${sensors[13].value} ${sensors[13].unit}`,
       label: sensors[13].name,
     },
-    {
-      value: `${sensors[14].value} ${sensors[14].unit}`,
-      label: sensors[14].name,
-    },
+    // {
+    //   value: `${sensors[14].value} ${sensors[14].unit}`,
+    //   label: sensors[14].name,
+    // },
     {
       value: `${sensors[15].value} ${sensors[15].unit}`,
       label: sensors[15].name,
@@ -110,115 +111,118 @@ const ScreenV2 = () => {
       value: `${sensors[25].value} ${sensors[25].unit}`,
       label: sensors[25].name,
     },
-    {
-      value: `${sensors[21].value} ${sensors[21].unit}`,
-      label: sensors[21].name,
-    },
-    {
-      value: `${sensors[22].value} ${sensors[22].unit}`,
-      label: sensors[22].name,
-    },
-    {
-      value: `${sensors[23].value} ${sensors[23].unit}`,
-      label: sensors[23].name,
-    },
+    // {
+    //   value: `${sensors[21].value} ${sensors[21].unit}`,
+    //   label: sensors[21].name,
+    // },
+    // {
+    //   value: `${sensors[22].value} ${sensors[22].unit}`,
+    //   label: sensors[22].name,
+    // },
+    // {
+    //   value: `${sensors[23].value} ${sensors[23].unit}`,
+    //   label: sensors[23].name,
+    // },
   ]
 
   return (
-    <Stack direction="row" width={1} justifyContent="space-between" gap={3}>
-      <Stack
-        direction={"column"}
-        justifyContent="space-between"
-        width={1}
-        p={1}
-        gap={2}
-      >
+    <Stack width={1} direction="column">
+      <Heading />
+      <Stack direction="row" width={1} justifyContent="space-between" gap={3}>
+        <Stack
+          direction={"column"}
+          justifyContent="space-between"
+          width={1}
+          gap={2}
+          paddingX={1}
+        >
+          <Stack width={1}>
+            <Typography variant="h5">GPU</Typography>
+            {gpu.map((sensor) => (
+              <Stack key={sensor.label} sx={styles.containerSensorLeft}>
+                <Typography>{sensor.label}</Typography>
+                <Typography>{sensor.value}</Typography>
+              </Stack>
+            ))}
+          </Stack>
+
+          <Stack width={1}>
+            <Typography variant="h5">System</Typography>
+            {system.map((sensor) => (
+              <Stack key={sensor.label} sx={styles.containerSensorLeft}>
+                <Typography>{sensor.label}</Typography>
+                <Typography>{sensor.value}</Typography>
+              </Stack>
+            ))}
+          </Stack>
+
+          <Stack width={1}>
+            <Typography variant="h5">CPU</Typography>
+            {cpu.map((sensor) => (
+              <Stack key={sensor.label} sx={styles.containerSensorLeft}>
+                <Typography>{sensor.label}</Typography>
+                <Typography>{sensor.value}</Typography>
+              </Stack>
+            ))}
+          </Stack>
+        </Stack>
         <Stack width={1}>
-          <Typography variant="h5">GPU</Typography>
-          {gpu.map((sensor) => (
-            <Stack key={sensor.label} sx={styles.containerSensorLeft}>
-              <Typography>{sensor.label}</Typography>
-              <Typography>{sensor.value}</Typography>
-            </Stack>
-          ))}
-        </Stack>
+          <Typography variant="h5">Stats</Typography>
+          <Stack direction="row" sx={styles.containerSensorRight} mb={2}>
+            <Typography sx={{ marginRight: "auto" }} variant="h6">
+              FPS
+            </Typography>
+            <Typography>{fps}</Typography>
+          </Stack>
+          <Stack direction="row" sx={styles.containerSensorRight}>
+            <Typography sx={{ marginRight: "auto" }} variant="h6">
+              GPU Core
+            </Typography>
+            <Typography>{gpuTemp}</Typography>
+            <Typography>{gpuLoad}</Typography>{" "}
+            <Typography>{`${gpuPowerWatts} (${gpuPowerPercent})`}</Typography>
+          </Stack>
 
-        <Stack width={1}>
-          <Typography variant="h5">System</Typography>
-          {system.map((sensor) => (
-            <Stack key={sensor.label} sx={styles.containerSensorLeft}>
-              <Typography>{sensor.label}</Typography>
-              <Typography>{sensor.value}</Typography>
-            </Stack>
-          ))}
-        </Stack>
+          <Stack direction="row" sx={styles.containerSensorRight}>
+            <Typography sx={{ marginRight: "auto" }} variant="h6">
+              GPU Mem
+            </Typography>
+            <Typography>{gpuMemTemp}</Typography>
+            <Typography>{`${gpuRam} (${gpuRamPercent})`}</Typography>
+          </Stack>
 
-        <Stack width={1}>
-          <Typography variant="h5">CPU</Typography>
-          {cpu.map((sensor) => (
-            <Stack key={sensor.label} sx={styles.containerSensorLeft}>
-              <Typography>{sensor.label}</Typography>
-              <Typography>{sensor.value}</Typography>
-            </Stack>
-          ))}
-        </Stack>
-      </Stack>
-      <Stack width={1}>
-        <Typography variant="h5">Stats</Typography>
-        <Stack direction="row" sx={styles.containerSensorRight} mb={2}>
-          <Typography sx={{ marginRight: "auto" }} variant="h6">
-            FPS
-          </Typography>
-          <Typography>{fps}</Typography>
-        </Stack>
-        <Stack direction="row" sx={styles.containerSensorRight}>
-          <Typography sx={{ marginRight: "auto" }} variant="h6">
-            GPU Core
-          </Typography>
-          <Typography>{gpuTemp}</Typography>
-          <Typography>{gpuLoad}</Typography>{" "}
-          <Typography>{`${gpuPowerWatts} (${gpuPowerPercent})`}</Typography>
-        </Stack>
+          <Stack direction="row" sx={styles.containerSensorRight}>
+            <Typography sx={{ marginRight: "auto" }} variant="h6">
+              CPU
+            </Typography>
+            <Typography>{cpuTemp}</Typography>
+            <Typography>{cpuUsage}</Typography>
+            <Typography>{cpuClock}</Typography>
+            <Typography>{cpuPower}</Typography>
+          </Stack>
 
-        <Stack direction="row" sx={styles.containerSensorRight}>
-          <Typography sx={{ marginRight: "auto" }} variant="h6">
-            GPU Mem
-          </Typography>
-          <Typography>{gpuMemTemp}</Typography>
-          <Typography>{`${gpuRam} (${gpuRamPercent})`}</Typography>
-        </Stack>
+          <Stack direction="row" sx={styles.containerSensorRight}>
+            <Typography sx={{ marginRight: "auto" }} variant="h6">
+              RAM
+            </Typography>
+            <Typography>{`${ramUsedMb} (${ramUsedPercent})`}</Typography>
+          </Stack>
 
-        <Stack direction="row" sx={styles.containerSensorRight}>
-          <Typography sx={{ marginRight: "auto" }} variant="h6">
-            CPU
-          </Typography>
-          <Typography>{cpuTemp}</Typography>
-          <Typography>{cpuUsage}</Typography>
-          <Typography>{cpuClock}</Typography>
-          <Typography>{cpuPower}</Typography>
-        </Stack>
+          <Stack direction="row" sx={styles.containerSensorRight}>
+            <Typography sx={{ marginRight: "auto" }} variant="h6">
+              Water
+            </Typography>
+            <Typography>{waterTemp}</Typography>
+            <Typography>{pump}</Typography>
+          </Stack>
 
-        <Stack direction="row" sx={styles.containerSensorRight}>
-          <Typography sx={{ marginRight: "auto" }} variant="h6">
-            RAM
-          </Typography>
-          <Typography>{`${ramUsedMb} (${ramUsedPercent})`}</Typography>
-        </Stack>
-
-        <Stack direction="row" sx={styles.containerSensorRight}>
-          <Typography sx={{ marginRight: "auto" }} variant="h6">
-            Water
-          </Typography>
-          <Typography>{waterTemp}</Typography>
-          <Typography>{pump}</Typography>
-        </Stack>
-
-        <Stack direction="row" sx={styles.containerSensorRight}>
-          <Typography sx={{ marginRight: "auto" }} variant="h6">
-            FAN
-          </Typography>
-          <Typography>{`${fanCpu} (CPU)`}</Typography>
-          <Typography>{`${fan4} (FRONT)`}</Typography>
+          <Stack direction="row" sx={styles.containerSensorRight}>
+            <Typography sx={{ marginRight: "auto" }} variant="h6">
+              FAN
+            </Typography>
+            <Typography>{`${fanCpu} (CPU)`}</Typography>
+            <Typography>{`${fan4} (FRONT)`}</Typography>
+          </Stack>
         </Stack>
       </Stack>
     </Stack>

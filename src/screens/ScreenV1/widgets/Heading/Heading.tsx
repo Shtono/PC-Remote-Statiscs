@@ -17,15 +17,12 @@ function HeadingLeft() {
     return () => clearInterval(interval)
   }, [])
   return (
-    <Stack
-      direction="column"
-      justifyContent="center"
-      alignItems="center"
-      width={100}
-    >
-      <Typography>{time.toLocaleTimeString()}</Typography>
+    <Stack direction="row" justifyContent="center" alignItems="center">
       <SidePanel />
-      <Typography>{time.toLocaleDateString()}</Typography>
+      <Box width={66}>
+        <Typography variant="caption">{time.toLocaleTimeString()}</Typography>
+      </Box>
+      {/*<Typography>{time.toLocaleDateString()}</Typography>*/}
       {/*<UpTimeCounter />*/}
     </Stack>
   )
@@ -49,7 +46,7 @@ function Heading() {
         }}
         color="white"
       >
-        If you see this, WATCHTOWER works!
+        Hi Shtono
       </Typography>
       <Box onClick={() => setOpen(true)}>
         <img style={image} src={displayImage || R2D2} alt="StarWars" />
